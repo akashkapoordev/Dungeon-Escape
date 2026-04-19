@@ -8,7 +8,7 @@ public class WeaponData : ScriptableObject
     public float attackSpeed;
     public float range;
 
-    public enum WeaponType { Mele,Range}
+    public enum WeaponType { Melee,Range}
     public WeaponType weaponType;
 
     public GameObject attackPrefab;

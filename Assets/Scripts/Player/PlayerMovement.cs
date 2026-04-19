@@ -7,16 +7,20 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _rb;
     private Vector2 _moveInput;
     private PlayerInputActions _inputActions;
+    private PlayerDash _dash;
 
 
-    private void Awake()
+
+private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _dash = GetComponent<PlayerDash>();
         _inputActions = new PlayerInputActions();
     }
 
-    private void OnEnable()
+private void OnEnable()
     {
+        if (_inputActions == null) _inputActions = new PlayerInputActions();
         _inputActions.Gameplay.Enable();
     }
 
@@ -30,8 +34,10 @@ public class PlayerMovement : MonoBehaviour
         _moveInput = _inputActions.Gameplay.Move.ReadValue<Vector2>();
     }
 
-    private void FixedUpdate()
+private void FixedUpdate()
     {
+        if (_dash != null && _dash.IsDashing) return;
+
         _rb.MovePosition(_rb.position + _moveInput * moveSpeed * Time.deltaTime);
     }
 }
